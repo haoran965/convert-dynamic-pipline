@@ -1,0 +1,12 @@
+{
+  "name": "typescript_lib_79f77e",
+  "scripts": {
+    "build": "p2esm @netless/slide"
+  },
+  "dependencies": {
+    "@netless/slide": "^1.4.2"
+  },
+  "devDependencies": {
+    "package2esm": "^1.0.2"
+  }
+}
