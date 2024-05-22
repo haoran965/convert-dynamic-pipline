@@ -1,7 +1,7 @@
 type: task_block
 title: typescript_lib_79f77e
 icon: https://static.oomol.com/icons/typescript.png
-render: render.js
+render: ./render.js
 executor:
   name: node_executor
   entry: index.ts

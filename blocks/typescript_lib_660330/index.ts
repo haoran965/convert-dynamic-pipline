@@ -24,6 +24,7 @@ async function getConvertProgress(taskId: string) {
         });
         const data = await res.json();
         if (data.status === "Converting" || data.status === "Waiting") {
+            console.log("convert progress:", data.convertedPercentage)
             await delay(3000)
             return getConvertProgress(taskId)
         } else {
@@ -54,18 +55,18 @@ async function createDynamicConvert(resource: string) {
 }
 
 export default async function(inputs: Inputs, context: Context) {
-    void context.output(inputs, "out", true);
-    // createDynamicConvert(inputs.in as string).then(async res => {
-    //   const data = await res.json();
-    //   const { uuid, type, status } = data;
-    //   const task = await getConvertProgress(uuid);
-    //   void context.output(task, "out", true);
+    // void context.output(inputs, "out", true);
+    createDynamicConvert(inputs.in as string).then(async res => {
+      const data = await res.json();
+      const { uuid, type, status } = data;
+      const task = await getConvertProgress(uuid);
+      void context.output({...task, uuid}, "out", true);
 
-    // }).catch(e => {
+    }).catch(e => {
 
-    //   throw e
-    // }).finally(() => {
-    //   void context.output(inputs, "out", true);
-    // })
+      throw e
+    }).finally(() => {
+      void context.output(inputs, "out", true);
+    })
 
 };

@@ -4,26 +4,13 @@ nodes:
     inputs_from:
       - handle: in
         cache:
-          initial_value: https://cdn.lingoace.com/classroomCourseTree/2023072609/toWH5Zya.pptx
+          initial_value: http://jk-live-record.oss-cn-shenzhen.aliyuncs.com/live/attach/202405/8a8087e78f135286018f9f66229a791c.pptx?Expires=1716452633&OSSAccessKeyId=LTAI5tRGR3GzGXYE66JK2DPg&Signature=%2BH8rscxAYPGGXvYrSzFbYPkdonU%3D
     title: create-ppt
     description: create dynamic convert ppt task
-  - task: transform::json_parser
-    node_id: f9af09cb-9c5b-4514-bb08-ecab637aa6fd
-    inputs_from:
-      - handle: string
-        cache:
-          initial_value: '{     "taskType": "dynamic_conversion",     "prefix":
-            "https://white-cover.oss-cn-hangzhou.aliyuncs.com/flat/dynamicConvert",     "convertStatus":
-            "Finished",     "convertedPercentage": 100,     "pageCount":
-            1,     "previews": {         "1":
-            "https://white-cover.oss-cn-hangzhou.aliyuncs.com/flat/dynamicConvert/37f84e16d6e446879ed84318fe958e91/preview/1.png"     },     "note":
-            "https://white-cover.oss-cn-hangzhou.aliyuncs.com/flat/dynamicConvert/37f84e16d6e446879ed84318fe958e91/jsonOutput/note.json",     "zip":
-            "https://white-cover.oss-cn-hangzhou.aliyuncs.com/flat/dynamicConvert/37f84e16d6e446879ed84318fe958e91/37f84e16d6e446879ed84318fe958e91.zip"
-            }'
   - task: ../../blocks/typescript_lib_79f77e/block.oo.yaml
     node_id: f77ee239-0367-4683-9df5-fcbf9ada0b9f
     inputs_from:
       - handle: in
         from_node:
-          - node_id: f9af09cb-9c5b-4514-bb08-ecab637aa6fd
-            output_handle: json
+          - node_id: 0330c828-79bb-4b5d-807b-ed2763236aa6
+            output_handle: out
