@@ -1,4 +1,4 @@
-import type { VocanaSDK } from "@oomol//oocana-sdk";
+import type { VocanaSDK } from "@oomol/oocana-sdk";
 
 type Context = VocanaSDK<Inputs, Outputs>;
 type Inputs = Readonly<{ in: unknown }>;
