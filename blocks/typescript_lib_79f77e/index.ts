@@ -6,4 +6,5 @@ type Outputs = Readonly<{ out: unknown }>;
 
 export default async function(inputs: Inputs, context: Context) {
   context.sendMessage("renderSlide")
+  context.done();
 };

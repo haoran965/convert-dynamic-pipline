@@ -2,7 +2,9 @@ import { Slide } from '@netless/slide'
 
 export default {
   async setup(dom, ctx) {
+    console.log(ctx)
     dom.style.width = "600px";
+    dom.style.height = "700px";
     const disposer = ctx.events.on("renderSlide", message => {
       console.log(message.payload)
     });
@@ -25,7 +27,6 @@ export default {
 
     controllerContainer.append(prevStepButton, nextStepButton)
     dom.appendChild(controllerContainer)
-    context.done()
     
     return () => {
       // 清理
