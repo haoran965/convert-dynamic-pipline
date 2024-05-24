@@ -1,10 +1,8 @@
 import type { VocanaSDK } from "@oomol/oocana-sdk";
 
 type Context = VocanaSDK<Inputs, Outputs>;
-type Inputs = Readonly<{ in: unknown }>;
-type Outputs = Readonly<{ out: unknown }>;
-
-const token = "?";
+type Inputs = Readonly<{ url: string, netless_token: string }>;
+type Outputs = Readonly<{ uuid: string, prefix: string }>;
 
 async function delay(time: number) {
     return new Promise((resolve) => {
@@ -14,7 +12,7 @@ async function delay(time: number) {
     })
 }
 
-async function getConvertProgress(taskId: string) {
+async function getConvertProgress(taskId: string, token: string) {
     try {
         const res = await fetch(`https://api.netless.link/v5/projector/tasks/${taskId}`, {
             headers: {
@@ -26,18 +24,18 @@ async function getConvertProgress(taskId: string) {
         if (data.status === "Converting" || data.status === "Waiting") {
             console.log("convert progress:", data.convertedPercentage)
             await delay(3000)
-            return getConvertProgress(taskId)
+            return getConvertProgress(taskId, token)
         } else {
             return data;
         }
     } catch {
         await delay(1000)
-        return getConvertProgress(taskId)
+        return getConvertProgress(taskId, token)
     }
 
 }
 
-async function createDynamicConvert(resource: string) {
+async function createDynamicConvert(resource: string, token: string) {
     const res = await fetch("https://api.netless.link/v5/projector/tasks", {
         method: "POST",
         body: JSON.stringify({
@@ -55,18 +53,16 @@ async function createDynamicConvert(resource: string) {
 }
 
 export default async function(inputs: Inputs, context: Context) {
-    // void context.output(inputs, "out", true);
-    createDynamicConvert(inputs.in as string).then(async res => {
+    const token = inputs.netless_token;
+    const url = inputs.url;
+    createDynamicConvert(url, token).then(async res => {
       const data = await res.json();
       const { uuid, type, status } = data;
-      const task = await getConvertProgress(uuid);
-      void context.output({...task, uuid}, "out", true);
-
+      const task = await getConvertProgress(uuid, token);
+      console.log(task, "task");
+      void context.output(uuid, "uuid", true);
+      void context.output(task.prefix, "prefix", true);
     }).catch(e => {
-
       throw e
-    }).finally(() => {
-      void context.output(inputs, "out", true);
     })
-
 };

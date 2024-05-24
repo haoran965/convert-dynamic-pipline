@@ -5,6 +5,22 @@ executor:
   name: node_executor
   entry: index.ts
 inputs_def:
-  - handle: in
+  - handle: url
+    serialize:
+      serializer: json
+      json_schema:
+        type: string
+  - handle: netless_token
+    serialize:
+      serializer: json
+      json_schema:
+        type: string
 outputs_def:
-  - handle: out
+  - handle: uuid
+    serialize:
+      serializer: json
+  - handle: prefix
+    serialize:
+      serializer: json
+      json_schema:
+        type: string
