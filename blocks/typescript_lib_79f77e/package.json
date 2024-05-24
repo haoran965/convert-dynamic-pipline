@@ -1,11 +1,15 @@
 {
   "name": "typescript_lib_79f77e",
   "scripts": {
-    "build": "esbuild render.ts --bundle --format=esm --outfile=render.js",
-    "dev": "esbuild render.ts --bundle --format=esm --outfile=render.js --watch"
+    "build": "esbuild render.tsx --bundle --format=esm --outfile=render.js",
+    "dev": "esbuild render.tsx --bundle --format=esm --outfile=render.js --watch"
   },
   "dependencies": {
-    "@netless/slide": "^1.4.2"
+    "@netless/slide": "^1.4.2",
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
   },
   "devDependencies": {
     "esbuild": "^0.21.3"

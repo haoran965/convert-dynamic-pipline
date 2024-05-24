@@ -34,6 +34,7 @@ export default async function(inputs: Inputs, context: Context) {
       void context.output(uuid, "uuid", true);
       void context.output(token, "netless_token", true);
     }).catch(e => {
+      void context.done();
       throw e
     })
 };
