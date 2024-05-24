@@ -2,15 +2,42 @@ nodes:
   - task: ../../blocks/typescript_lib_660330/block.oo.yaml
     node_id: 0330c828-79bb-4b5d-807b-ed2763236aa6
     inputs_from:
-      - handle: in
+      - handle: url
+        from_node:
+          - node_id: 9940b09a-061f-49b8-ab64-14e534fd2bdd
+            output_handle: url
+      - handle: netless_token
         cache:
-          initial_value: http://jk-live-record.oss-cn-shenzhen.aliyuncs.com/live/attach/202405/8a8087e78f135286018f9f66229a791c.pptx?Expires=1716452633&OSSAccessKeyId=LTAI5tRGR3GzGXYE66JK2DPg&Signature=%2BH8rscxAYPGGXvYrSzFbYPkdonU%3D
+          initial_value: ""
     title: create-ppt
     description: create dynamic convert ppt task
   - task: ../../blocks/typescript_lib_79f77e/block.oo.yaml
     node_id: f77ee239-0367-4683-9df5-fcbf9ada0b9f
     inputs_from:
-      - handle: in
+      - handle: uuid
         from_node:
           - node_id: 0330c828-79bb-4b5d-807b-ed2763236aa6
-            output_handle: out
+            output_handle: uuid
+      - handle: prefix
+        from_node:
+          - node_id: 0330c828-79bb-4b5d-807b-ed2763236aa6
+            output_handle: prefix
+    title: preview ppt
+  - task: alicloud::upload_to_oss
+    node_id: 9940b09a-061f-49b8-ab64-14e534fd2bdd
+    inputs_from:
+      - handle: region
+        cache:
+          initial_value: oss-cn-hangzhou
+      - handle: accessKeyId
+        cache:
+          initial_value: ""
+      - handle: accessKeySecret
+        cache:
+          initial_value: ""
+      - handle: bucket
+        cache:
+          initial_value: ""
+      - handle: localfile
+        cache:
+          initial_value: ""
