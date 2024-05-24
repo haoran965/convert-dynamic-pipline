@@ -9,18 +9,20 @@ nodes:
       - handle: netless_token
         cache:
           initial_value: ""
-    title: create-ppt
-    description: create dynamic convert ppt task
+    title: create-convert-task
+    description: |-
+      use Agora api 
+      create dynamic convert ppt task
   - task: ../../blocks/typescript_lib_79f77e/block.oo.yaml
     node_id: f77ee239-0367-4683-9df5-fcbf9ada0b9f
     inputs_from:
       - handle: uuid
         from_node:
-          - node_id: 0330c828-79bb-4b5d-807b-ed2763236aa6
+          - node_id: 557c50b9-9496-4a21-9aa2-bd9349aec0ed
             output_handle: uuid
       - handle: prefix
         from_node:
-          - node_id: 0330c828-79bb-4b5d-807b-ed2763236aa6
+          - node_id: 557c50b9-9496-4a21-9aa2-bd9349aec0ed
             output_handle: prefix
     title: preview ppt
   - task: alicloud::upload_to_oss
@@ -41,3 +43,17 @@ nodes:
       - handle: localfile
         cache:
           initial_value: ""
+    description: upload to cloud and get a pptx url
+  - task: ../../blocks/typescript_lib_8c557c/block.oo.yaml
+    node_id: 557c50b9-9496-4a21-9aa2-bd9349aec0ed
+    inputs_from:
+      - handle: uuid
+        from_node:
+          - node_id: 0330c828-79bb-4b5d-807b-ed2763236aa6
+            output_handle: uuid
+      - handle: netless_token
+        from_node:
+          - node_id: 0330c828-79bb-4b5d-807b-ed2763236aa6
+            output_handle: netless_token
+    title: pptx-convert
+    description: start convert work
